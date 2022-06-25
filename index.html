@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Socket.IO chat</title>
+    <style>
+      body { margin: 0; padding-bottom: 3rem; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+
+      #form { background: rgba(0, 0, 0, 0.15); padding: 0.25rem; position: fixed; bottom: 0; left: 0; right: 0; display: flex; height: 3rem; box-sizing: border-box; backdrop-filter: blur(10px); }
+      #input { border: none; padding: 0 1rem; flex-grow: 1; border-radius: 2rem; margin: 0.25rem; }
+      #input:focus { outline: none; }
+      #form > button { background: #333; border: none; padding: 0 1rem; margin: 0.25rem; border-radius: 3px; outline: none; color: #fff; }
+
+      #messages { list-style-type: none; margin: 0; padding: 0; }
+      #messages > li { padding: 0.5rem 1rem; }
+      #messages > li:nth-child(odd) { background: #efefef; }
+    </style>
+  </head>
+  <body>
+    <ul id="messages"></ul>
+    <form id="form" action="">
+      <input id="input" autocomplete="off" /><button>Send</button>
+    </form>
+
+    <button onclick="getID()">getID</button>
+    <button onclick="joinRoom1()">joinRoom1</button>
+    <button onclick="sendRoom1()">sendRoom1</button>
+    <button onclick="createRoom()">createRoom</button>
+    <button onclick="joinRoom()">joinRoom</button>
+    <button onclick="getRooms()">getRooms</button>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+    var socket = io();
+
+    var form = document.getElementById('form');
+    var input = document.getElementById('input');
+    
+    socket.on("broadcast room msg", (senderSocketID, roomName, msg) => {
+        console.log("broadcast recieved:", senderSocketID, roomName, msg);
+    });
+
+    socket.on("hi", () => {
+        console.log("server sent hi!");
+    });
+
+    socket.on("return rooms", (rooms) => {
+        console.log(rooms);
+    });
+
+
+    
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        if (input.value) {
+        socket.emit('chat message', input.value);
+        input.value = '';
+        }
+    });
+
+    async function joinRoom1 () {
+        socket.emit("room1");
+        console.log("room1 join guess")
+    }
+
+
+    async function sendRoom1 () {
+        roomName = "room1";
+        socket.emit("room msg", socket.id, roomName, "room1 save product");
+        console.log("room1 msg i guess")
+    }
+
+    async function getID () {
+        console.log(socket.id)
+
+    }
+
+    
+
+    async function createRoom () {
+        room = "room1";
+        io.of("/").adapter.on("create-room", (room) => {
+            console.log(`room ${room} was created`);
+        });
+    }
+
+    async function joinRoom(){
+        room = "room1";
+        io.of("/").adapter.on("join-room", (room, id) => {
+            console.log(`socket ${id} has joined room ${room}`);
+        }); 
+        
+    }
+
+    async function getRooms () {
+        socket.emit("get rooms");
+
+    }
+    </script>
+  </body>
+</html>
