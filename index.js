@@ -54,6 +54,6 @@ io.on("connection", async (socket) => {
 });
 
 server.listen(process.env.PORT || 3000, () => {
-  // console.log("listening on *:3000");
-  console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
+  console.log("listening on *:", process.env.PORT);
+  // console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
 });
