@@ -13,29 +13,20 @@ document.addEventListener("DOMContentLoaded", function () {
   const hp = document.getElementById("hp");
   const finishGame = document.getElementById("finishGame");
   var roomName = "";
-
-  let hasJoinedRoom = false;
   let prevPercentage = 0;
   let currentPercentage = 0;
   let friendPercentage = 0;
   let indivGoalIsReached = false;
   let monsterIsDead = false;
 
-  if (
-    localStorage.getItem("goal") !== null &&
-    localStorage.getItem("goal") !== "" &&
-    !hasJoinedRoom
-  ) {
-    $("#roomModal").modal("show");
-  } else {
-    $("#goalModal").modal("show");
-    $("#roomModal").modal("hide");
-  }
+  localStorage.clear();  
+  $("#goalModal").modal("show");
 
   doneBtn.addEventListener("click", function (e) {
     e.preventDefault();
     localStorage.setItem("goal", form.goal.value);
-    location.reload();
+    $("#goalModal").modal("hide");
+    $("#roomModal").modal("show");
   });
 
   createBtn.addEventListener("click", function () {
@@ -90,7 +81,6 @@ document.addEventListener("DOMContentLoaded", function () {
       if (currentPercentage - prevPercentage >= 10) {
         friendPercentage = fetchGameState(currentPercentage); 
       }
-        
 
       if (hp.innerHTML <= 0) {
         hp.innerHTML = 0 + "%";
@@ -149,20 +139,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
   socket.on("room created", () => {
     console.log("Room created and joined successfully!");
-    //if successfully created room
-    hasJoinedRoom = true;
     startgame();
   });
 
   socket.on("room joined", () => {
     console.log("Room joined successfully!");
-    //if successfully created room
-    hasJoinedRoom = true;
     startgame();
   });
 
   socket.on("room not found", () => {
     console.log("Room not found!");
+    window.alert("Room not found!");
+    $("#roomModal").modal("hide");
   });
 
   socket.on("broadcast health update", (updatedFriendPercentage) => {
