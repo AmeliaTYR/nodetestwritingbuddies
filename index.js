@@ -57,7 +57,7 @@ io.on("connection", async (socket) => {
   });
 
   socket.on("create room", (roomName) => {
-    if(io.sockets.adapter.rooms[roomeName])
+    if(io.sockets.adapter.rooms[roomName])
     {
         // Send message back to the client say room already exist
         io.to(userId).emit("room exists");
@@ -74,7 +74,7 @@ io.on("connection", async (socket) => {
 
 
   socket.on("join room", (roomName) => {
-    if(io.sockets.adapter.rooms[roomeName])
+    if(io.sockets.adapter.rooms[roomName])
     {
       socket.join(roomName);
         io.to(userId).emit("room joined");
