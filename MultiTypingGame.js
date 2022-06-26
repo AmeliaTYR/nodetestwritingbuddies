@@ -1,3 +1,5 @@
+var socket = io();
+
 document.addEventListener("DOMContentLoaded", function () {
   const form = document.getElementById("form");
   const formRoom = document.getElementById("formRoom");
@@ -30,11 +32,16 @@ document.addEventListener("DOMContentLoaded", function () {
   createBtn.addEventListener("click", function () {
     socket.emit("create room", formRoom.roomName.value);
     roomName = formRoom.roomName.value;
+
+    console.log("Attempted to create room", roomName);
   });
 
   joinBtn.addEventListener("click", function () {
     socket.emit("join room", formRoom.roomName.value);
     roomName = formRoom.roomName.value;
+
+    console.log("Attempted to join room", roomName);
+
   }); 
 
   if (localStorage.getItem("goal") !== null) {
