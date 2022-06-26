@@ -87,7 +87,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       if (currentPercentage - prevPercentage >= 10) {
-        friendPercentage = fetchGameState(currentPercentage); 
+        fetchGameState(currentPercentage); 
       }
 
       if (hp.innerHTML <= 0) {
