@@ -1,3 +1,5 @@
+var socket = io();
+
 document.addEventListener("DOMContentLoaded", function () {
   const form = document.getElementById("form");
   const formRoom = document.getElementById("formRoom");
