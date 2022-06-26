@@ -24,12 +24,22 @@ document.addEventListener("DOMContentLoaded", function () {
   localStorage.clear();  
   $("#goalModal").modal("show");
 
+  function validateForm() {
+    let x = document.forms["form"]["goal"].value;
+    if (x == "") {
+        alert("Goal must be filled out");
+        $('#goalModal').modal('show');  
+    } else {
+        localStorage.setItem("goal", form.goal.value);
+        $('#goalModal').modal('hide');  
+        $('#roomModal').modal('show'); 
+    }        
+  }
+
   doneBtn.addEventListener("click", function (e) {
-    e.preventDefault();
-    localStorage.setItem("goal", form.goal.value);
-    $("#goalModal").modal("hide");
-    $("#roomModal").modal("show");
-  });
+      e.preventDefault();
+      validateForm();
+  }); 
 
   createBtn.addEventListener("click", function () {
     socket.emit("create room", formRoom.roomName.value);
