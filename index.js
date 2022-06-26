@@ -20,6 +20,11 @@ app.get("/MultiTypingGame.js", (req, res) => {
   res.sendFile(__dirname + "/MultiTypingGame.js");
 });
 
+// load the logo png
+app.get("/Logo.png", (req, res) => {
+  res.sendFile(__dirname + "/Logo.png");
+});
+
 
 
 io.on("connection", async (socket) => {
