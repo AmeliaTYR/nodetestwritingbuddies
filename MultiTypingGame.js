@@ -94,8 +94,7 @@ document.addEventListener("DOMContentLoaded", function () {
   );
 
   function countWord(val) {
-    var wom = val.match(/\S+/);
-    console.log("wom", wom)
+    var wom = val.split(" ");
     if (wom.length >= localStorage.getItem("goal")) monsterIsDead = true;
 
     if (monsterIsDead === true) {
