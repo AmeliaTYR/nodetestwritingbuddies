@@ -59,11 +59,11 @@ io.on("connection", async (socket) => {
   socket.on("create room", (roomName) => {
 
     console.log(io.sockets.adapter.rooms);
-    console.log(io.sockets.adapter.rooms[roomName.toString()]);
+    console.log(io.sockets.adapter.rooms.get(roomName));
 
     console.log(roomName);
 
-    if(io.sockets.adapter.rooms[roomName.toString()])
+    if(io.sockets.adapter.rooms.get(roomName))
     {
         // Send message back to the client say room already exist
         io.to(userId).emit("room exists");
@@ -81,9 +81,9 @@ io.on("connection", async (socket) => {
 
   socket.on("join room", (roomName) => {
     console.log(io.sockets.adapter.rooms);
-    console.log(io.sockets.adapter.rooms[roomName.toString()]);
+    console.log(io.sockets.adapter.rooms.get(roomName));
     console.log(roomName);
-    if(io.sockets.adapter.rooms[roomName.toString()])
+    if(io.sockets.adapter.rooms.get(roomName))
     {
       socket.join(roomName);
         io.to(userId).emit("room joined");
