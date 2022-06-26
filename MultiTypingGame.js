@@ -115,6 +115,14 @@ document.addEventListener("DOMContentLoaded", function () {
   function fetchGameState(currentPercentage) {
     socket.emit("health update sent", roomName, currentPercentage);
 
+    if (currentPercentage >= 50) {
+        currentPercentage = 50
+    }
+
+    if (friendPercentage >= 50) {
+        friendPercentage = 50
+    }
+
     if (currentPercentage >= 50 && friendPercentage >= 50) {
         monsterIsDead = true;
         monster.style.display = "none";
@@ -125,6 +133,15 @@ document.addEventListener("DOMContentLoaded", function () {
   // amelia calls this. this is what will update the friend's hp
   function listener(updatedFriendPercentage) {
     friendPercentage = updatedFriendPercentage;
+
+    if (currentPercentage >= 50) {
+        currentPercentage = 50
+    }
+
+    if (friendPercentage >= 50) {
+        friendPercentage = 50
+    }
+
     hp.style.width = 100 - currentPercentage - friendPercentage + "%";
     hp.innerHTML = 100 - currentPercentage - friendPercentage + "%";
 
