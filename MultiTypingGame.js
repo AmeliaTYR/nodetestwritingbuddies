@@ -51,6 +51,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function startgame() {
+    textInput.style.display = "flex";
     monster.style.display = "flex";
     finishGame.style.display = "none";
     $("#goalModal").modal("hide");
