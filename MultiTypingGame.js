@@ -115,7 +115,7 @@ document.addEventListener("DOMContentLoaded", function () {
   function fetchGameState(currentPercentage) {
     socket.emit("health update sent", roomName, currentPercentage);
 
-    if (currentPercentage + friendPercentage >= 100) {
+    if (currentPercentage >= 50 && friendPercentage >= 50) {
         monsterIsDead = true;
         monster.style.display = "none";
         finishGame.style.display = "flex";
@@ -128,7 +128,7 @@ document.addEventListener("DOMContentLoaded", function () {
     hp.style.width = 100 - currentPercentage - friendPercentage + "%";
     hp.innerHTML = 100 - currentPercentage - friendPercentage + "%";
 
-    if (currentPercentage + friendPercentage >= 100) {
+    if (currentPercentage >= 50 && friendPercentage >= 50) {
       monsterIsDead = true;
       monster.style.display = "none";
       finishGame.style.display = "flex";
