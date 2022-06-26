@@ -191,3 +191,8 @@ document.addEventListener("DOMContentLoaded", function () {
     listener(updatedFriendPercentage);
   });
 });
+
+
+function viewARPrize() {
+    window.location = "https://writingbuddieshosting.vercel.app/ARPrizeViewing/ARPrize.html";
+}
