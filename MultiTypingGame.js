@@ -1,4 +1,6 @@
 var socket = io();
+console.log(socket.id)
+
 
 document.addEventListener("DOMContentLoaded", function () {
   const form = document.getElementById("form");

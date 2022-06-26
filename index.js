@@ -59,6 +59,8 @@ io.on("connection", async (socket) => {
   socket.on("create room", (roomName) => {
 
     console.log(io.sockets.adapter.rooms);
+    console.log(roomName);
+
     if(io.sockets.adapter.rooms[roomName])
     {
         // Send message back to the client say room already exist
@@ -77,6 +79,7 @@ io.on("connection", async (socket) => {
 
   socket.on("join room", (roomName) => {
     console.log(io.sockets.adapter.rooms);
+    console.log(roomName);
     if(io.sockets.adapter.rooms[roomName])
     {
       socket.join(roomName);
@@ -96,6 +99,17 @@ io.on("connection", async (socket) => {
       .emit("broadcast health update", currentPercentage);
   });
 
+  ///////////////////////////////////////////////////////////////////////////////////
+
+  // ADAPTER STUFFS
+
+  io.of("/").adapter.on("create-room", (room) => {
+    console.log(`room ${room} was created`);
+  });
+  
+  io.of("/").adapter.on("join-room", (room, id) => {
+    console.log(`socket ${id} has joined room ${room}`);
+  });
 
 
 
