@@ -61,6 +61,7 @@ io.on("connection", async (socket) => {
     {
         // Send message back to the client say room already exist
         io.to(userId).emit("room exists");
+        console.log(userId, "could not join", roomName, "room already exists");
     } else {
       // Send message back to the client they have created and joined the room
       socket.join(roomName);
@@ -79,6 +80,8 @@ io.on("connection", async (socket) => {
         io.to(userId).emit("room joined");
     } else {
       io.to(userId).emit("room not found");
+      console.log(userId, "could not join", roomName, "room does not exists");
+
     }
 
   });
