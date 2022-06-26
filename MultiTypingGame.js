@@ -67,11 +67,16 @@ document.addEventListener("DOMContentLoaded", function () {
       showWordCount.innerHTML =
         "<br>Words: " + input.words + " out of " + localStorage.getItem("goal");
 
+        
+
       if (currentPercentage - prevPercentage >= 10)
         prevPercentage = currentPercentage;
         currentPercentage = Math.floor(
         (input.words * 50) / localStorage.getItem("goal")
       );
+
+      console.log("percentages", currentPercentage, friendPercentage);
+
 
       if (currentPercentage === 50) {
         indivGoalIsReached = true;
