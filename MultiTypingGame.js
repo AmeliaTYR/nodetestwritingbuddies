@@ -100,7 +100,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function countWord(val) {
     var wom = val.split(" ");
-    if (wom.length >= localStorage.getItem("goal")) monsterIsDead = true;
 
     if (monsterIsDead === true) {
       monster.style.display = "none";
