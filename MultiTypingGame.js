@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       if (currentPercentage - prevPercentage >= 10)
         prevPercentage = currentPercentage;
-      currentPercentage = Math.floor(
+        currentPercentage = Math.floor(
         (input.words * 50) / localStorage.getItem("goal")
       );
 
@@ -111,9 +111,10 @@ document.addEventListener("DOMContentLoaded", function () {
   function fetchGameState(currentPercentage) {
     socket.emit("health update sent", roomName, currentPercentage);
 
-    // TODO: FRAN if friend health is 0 user health is 0
-    if (true) {
-        // end game condition
+    if (currentPercentage + friendPercentage >= 100) {
+        monsterIsDead = true;
+        monster.style.display = "none";
+        finishGame.style.display = "flex";
     }
   }
 
@@ -123,10 +124,11 @@ document.addEventListener("DOMContentLoaded", function () {
     hp.style.width = 100 - currentPercentage - friendPercentage + "%";
     hp.innerHTML = 100 - currentPercentage - friendPercentage + "%";
 
-    // TODO: FRAN if friend health is 0 user health is 0
-    if (true) {
-        // end game condition
-    }
+    if (currentPercentage + friendPercentage >= 100) {
+      monsterIsDead = true;
+      monster.style.display = "none";
+      finishGame.style.display = "flex";
+  }
   }
 
   ///////////////////////////////////////////////////////////////////////////////////
