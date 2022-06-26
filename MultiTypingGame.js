@@ -109,7 +109,8 @@ document.addEventListener("DOMContentLoaded", function () {
   );
 
   function countWord(val) {
-    var wom = val.split(" ");
+    //var wom = val.split(" ");
+    var wom = val.match(/\S+/g);
 
     if (monsterIsDead === true) {
       monster.style.display = "none";
@@ -121,7 +122,6 @@ document.addEventListener("DOMContentLoaded", function () {
     };
   }
 
-  //  i call this. this is to get the friend's percentage when i lose 10% of my hp
   function fetchGameState(currentPercentage) {
     socket.emit("health update sent", roomName, currentPercentage);
 
@@ -140,7 +140,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // amelia calls this. this is what will update the friend's hp
   function listener(updatedFriendPercentage) {
     friendPercentage = updatedFriendPercentage;
 
